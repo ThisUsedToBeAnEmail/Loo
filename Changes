@@ -1,0 +1,49 @@
+Revision history for Loo
+
+0.01    Date/time
+        First version, released on an unsuspecting world.
+
+0.04	2026/03/26
+	- improve indentation handling
+
+0.05	2026/03/26
+	- Attempt to fix windows deparse bugs
+	- Add include_dir sub to assist in dynamically linking the reusable C headers
+
+0.06	2026/03/26
+	- Fix various bugs around parsing variable names via AELEM* should now hopefully support 5.10 -> latest
+
+0.07	2026/03/27
+	- Fix deparse blank line on older Perls (5.10-5.12) for postfix for loops
+	- Fix OP_EMPTYAVHV guard to support Perl 5.36-5.38 empty {} and [] constructors
+	- Fix blessed regex detection on pre-5.12 Perls using PERL_MAGIC_qr
+	- Fix Sortkeys coderef test expecting array ref instead of hash ref
+
+0.08	2026/03/28
+	- Fix PADNAME typedef guard for Perl 5.20 (was incorrectly guarded at < 22)
+	- Fix OP_PADSV_STORE version guard from >= 36 to >= 38 (introduced in 5.38)
+
+0.09	2026/03/29
+	- Fix OP_EMPTYAVHV preprocessor guards - use version check instead of #ifdef
+	  since OP_EMPTYAVHV is an enum value not a #define in Perl 5.36+
+
+0.10	2026/04/02
+	- Fix deparsing of list context
+
+0.11	2026/04/17
+	- Fix deparsing of custom ops
+
+0.12	2026/04/25
+	- Fix OP_EMPTYAVHV version guard from >= 36 to >= 38 (introduced in
+	  5.38, was breaking builds on 5.36 across Solaris and Linux)
+	- Fix custom op name lookup on 5.14-5.18: use Perl_custom_op_xop
+	  which handles both Perl_custom_op_register (PL_custom_ops) and
+	  legacy PL_custom_op_names registrations
+	- Add custom op name fallback for 5.10-5.12 via Perl_custom_op_name
+	  (legacy PL_custom_op_names only; XOP infrastructure doesn't exist)
+
+
+0.13	2026/10/08
+	- Fix build on 5.8: guard OP_DOR, OP_DORASSIGN and OP_SAY
+	- Fix build on 5.10.0: RX_PRECOMP and RX_PRELEN fallbacks
+	- Guard // tests so they parse on 5.8
